@@ -1,14 +1,12 @@
-import { test, expect } from '@playwright/test';
-import { LoginPage } from './login';
+import { test, expect } from './index';
 import { ScreenshotHelper } from './Screenshothelper';
 
 
-test('Dashboard', async ({ page }, testInfo) => {
+test('Dashboard', async ({ loginPage,page }, testInfo) => {
 
     const shot = new ScreenshotHelper(page, testInfo);
-    const login = new LoginPage(page);
 
-    await login.login('standard_user', 'secret_sauce');
+    await loginPage.login('standard_user', 'secret_sauce');
 
     await test.step('Verify that user is directed to Swag Labs inventory page', async () => {
         await expect.soft(page).toHaveURL('https://www.saucedemo.com/inventory.html');
@@ -41,12 +39,13 @@ test('Dashboard', async ({ page }, testInfo) => {
 });
 
 
-test('Add to Cart and Remove from Cart', async ({ page }, testInfo) => {
+test('Add to Cart and Remove from Cart', async ({ loginPage,page }, testInfo) => {
 
     var cartCount = 0;
-    const login = new LoginPage(page);
+    
     const shot = new ScreenshotHelper(page, testInfo);
-    await login.login('standard_user', 'secret_sauce');
+    
+    await loginPage.login('standard_user', 'secret_sauce');
 
     await test.step('Verify that the products are displayed on the dashboard', async () => {
         await expect.soft(page.locator('[data-test="inventory-item-description"]').first()).toBeVisible();
@@ -96,19 +95,19 @@ test('Add to Cart and Remove from Cart', async ({ page }, testInfo) => {
     });
 });
 
-test('Checking burger menu and its options', async ({ page }, testInfo) => {
+test('Checking burger menu and its options', async ({ loginPage,page }, testInfo) => {
 
-    const login = new LoginPage(page);
+    
     const shot = new ScreenshotHelper(page, testInfo);
-    await login.login('standard_user', 'secret_sauce');
+    await loginPage.login('standard_user', 'secret_sauce');
 
     await test.step('Verify that the burger menu is displayed on the dashboard', async () => {
         await expect(page.getByRole('button', { name: 'Open Menu' })).toBeVisible();
     });
     await test.step('Verify that the burger menu can be opened and closed', async () => {
         await page.getByRole('button', { name: 'Open Menu' }).click();
-        await expect(page.locator('.bm-menu-wrap')).toBeVisible();
         await shot.captureFullPage('Burger menu opened');
+        await expect(page.locator('.bm-menu-wrap')).toBeVisible();
         await page.getByRole('button', { name: 'Close Menu' }).click();
         await expect(page.locator('.bm-menu-wrap')).not.toBeVisible();
         await shot.capture('Burger menu closed');
