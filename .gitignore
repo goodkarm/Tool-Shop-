@@ -8,3 +8,4 @@ node_modules/
 .env
 # Playwright
 /playwright/.auth/
+/e2e
