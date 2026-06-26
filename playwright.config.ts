@@ -27,10 +27,12 @@ export default defineConfig({
   use: {
     /* Base URL to use in actions like `await page.goto('')`. */
     // baseURL: 'http://localhost:3000',
+    headless: true,
+    viewport: { width: 1440, height: 900 },
     launchOptions: {
       args: ['--start-maximized'],
-      },
-    screenshot: 'only-on-failure',   // saves a PNG when a test fails
+    },
+    screenshot: 'only-on-failure',
     video: 'retain-on-failure',
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
@@ -41,19 +43,18 @@ export default defineConfig({
   projects: [
     {
       name: 'chromium',
-      use: { viewport: null,}, },
-      
+      use: { ...devices['Desktop Chrome'] },
+    },
 
     {
       name: 'firefox',
-      use: { viewport: null,
-    }, 
-  },
-      
+      use: { ...devices['Desktop Firefox'] },
+    },
+
     {
       name: 'webkit',
-      use: { viewport: null,
-    }, },
+      use: { ...devices['Desktop Safari'] },
+    },
       
 
     /* Test against mobile viewports. */
