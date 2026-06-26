@@ -43,6 +43,10 @@ export class ScreenshotHelper {
     const filePath = path.join(this.screenshotDir, fileName);
 
     try {
+      await this.page.waitForLoadState('networkidle', { timeout: 10000 }).catch(() => {
+        // Ignore timeout and continue so screenshots still work on slower or SPA pages
+      });
+
       await this.page.screenshot({
         path: filePath,
         fullPage: options.fullPage ?? false,
