@@ -9,3 +9,4 @@ node_modules/
 # Playwright
 /playwright/.auth/
 /e2e
+/LoginPractice
