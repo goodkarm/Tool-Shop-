@@ -30,7 +30,7 @@ export default defineConfig({
     headless: true,
     viewport: { width: 1440, height: 900 },
     launchOptions: {
-      args: ['--start-maximized'],
+      args: [],
     },
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
