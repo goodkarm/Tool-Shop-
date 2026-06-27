@@ -111,6 +111,12 @@ export class Register {
         await expect.soft(this.page.getByText(expectedError)).toBeVisible();
     }
 
+    async verifyRegistrationFailed() {
+        await expect.soft(this.page).toHaveURL( 
+            'https://practicesoftwaretesting.com/auth/register'
+        )
+    }
+
     async verifyRegistrationSuccess() {
         await expect.soft(this.page).toHaveURL(
             'https://practicesoftwaretesting.com/auth/login'

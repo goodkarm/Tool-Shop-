@@ -82,6 +82,7 @@ test.describe('Form Fields Validation', () => {
                     await register.clickRegisterButton();
                     await register.verifyRegistrationSuccess();
                     await screenshotHelper.captureFullPage('Registration Successful and back to Login Page');
+                    
                 });
             });
         }

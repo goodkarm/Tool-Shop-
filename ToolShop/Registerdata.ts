@@ -20,6 +20,12 @@ export type FormScenario = {
     expectedError?: string;
 };
 
+const randomEmail = (): string => {
+    const timestamp = Date.now();
+    const randomSuffix = Math.floor(Math.random() * 100);
+    return `johndoe${timestamp}${randomSuffix}@mail.com`;
+};
+
 export const validScenarios: FormScenario[] = [
     {
         description: 'valid registration with all fields filled',
@@ -34,9 +40,10 @@ export const validScenarios: FormScenario[] = [
             city: 'Vancouver',
             state: 'Ontario',
             phone: '12345678',
-            emailAddress: 'johndoe4@mail.com',
+            emailAddress: randomEmail(),
             password: 'P@sswzzzzord123!',
         },
+        expectedError: 'A customer with this email address already exists.',
     },
 ];
 
@@ -246,6 +253,24 @@ export const invalidScenarios: FormScenario[] = [
             password: 'Password1!',
         },
         expectedError: 'Email format is invalid',
+    },
+    {
+    description: 'email already exists',
+        formData: {
+            firstName: 'John',
+            lastName: 'Doe',
+            dateOfBirth: '2000-01-01',
+            country: 'Canada',
+            postalCode: '1234',
+            houseNumber: '12',
+            street: 'Vickie Hill',
+            city: 'Vancouver',
+            state: 'Ontario',
+            phone: '12345678',
+            emailAddress: 'admin@practicesoftwaretesting.com',
+            password: 'P@sswzzzzord123!',
+        },
+        expectedError: 'A customer with this email address already exists.',
     },
     {
         description: 'empty password',
